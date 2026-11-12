@@ -2,6 +2,9 @@
     Exercise 03 - Adding Self-Reflection Capability
     
     Challenge: You are tasked with upgrading the existing agent. This version can learn from its previous answers, identify mistakes, and refine its responses automatically.
+    
+    Edit: Forgot to put this note here, but the exercise asked for a "Memory" class and some different approches, I'm cooler thant that
+    and opted to do it a bit different. 😎 (just opted to keep it simple 😂)
 """
 
 from openai import OpenAI
@@ -12,7 +15,6 @@ load_dotenv()
 logging.basicConfig(level=logging.WARNING)
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
-
 
 # Copied Agent class from exercise 2, I could use import but for "changing the class" purposes I will just copy it whenever needed.
 # Could also leave to "check differences" with the git versioning but this is just an exercise bruh
