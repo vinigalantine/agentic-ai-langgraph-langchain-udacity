@@ -1,5 +1,5 @@
 """
-    Exercise 02 - Create Agent from scra
+    Exercise 02 - Create Agent from scratch
     
     Challenge: You are tasked with creating an abstraction on top of LLMs, that is adaptable and efficient.
     
@@ -30,15 +30,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 class Agent:
-    def __init__(self, name:str="Franky", role:str="General Assistant", instructions:str="Help the user with general queries.", model:str = "gpt-4o-mini", temperature:float=1.0) -> None:
-        self._client = OpenAI() # Would be good to be "client-agnostic" but for pratical reasons let's keep it OpenAI
+    def __init__(self, name:str="Franky", role:str="General Assistant", instructions:str="Help the user with general queries.", model:str = "gpt-4o-mini", temperature:float=0.0) -> None:
+        self._client = OpenAI() # Would be good to be "client-agnostic" but for practical reasons let's keep it OpenAI
         
         try:
-            disponible_models = [openai_model.id for openai_model in self._client.models.list()]
+            available_models = [openai_model.id for openai_model in self._client.models.list()]
         except Exception:
-            disponible_models = ["gpt-4o-mini", "gpt-4o"]
+            available_models = ["gpt-4o-mini", "gpt-4o"]
             
-        if model not in disponible_models:
+        if model not in available_models:
             raise ValueError(f'Invalid model: "{model}". Please provide a valid OpenAI model.')
         
         self._name = name
@@ -89,12 +89,55 @@ class Agent:
             self._messages.append({"role": "assistant", "content": agent_response })
         
         return agent_response or "[Agent did not respond]"
+    
+def print_agent_response(agent: Agent, response: str) -> None:
+    print(f"{agent.role} - {agent.name} the agent: {response}")
 
+def print_spacing():
+    print("\n" + "="*100 + "\n")
 
-print("Let's test this workflow:")
-test_agent = Agent(name="Tom", role="Travel Assistant", instructions="Tell me the distance between city A and city B", model="gpt-4o-mini")
-query = input()
-while(query != "0"):
-    print(test_agent.invoke(query))
-    print("What's next?")
-    query = input()
+default_agent = Agent()
+query = "What is the capital of France?"
+agent_response = default_agent.invoke(query)
+print_agent_response(default_agent, agent_response)
+
+print_spacing()
+# Instructions should be "more complete", but I'll leave it "simple" for this exercise
+
+travel_agent = Agent(name="Travy", 
+                   role="Travel Assistant", 
+                   instructions="You only plan trips. You only talk about trips. You are here to help the user plan trips.")
+
+query = "Where should I go for vacation in December?"
+agent_response = travel_agent.invoke(query)
+print_agent_response(travel_agent, agent_response)
+
+print_spacing()
+
+math_tutor_agent = Agent(name="Mathew", 
+                   role="Math Assistant", 
+                   instructions="You only answer math questions. You only talk math. You are here to help the user with math.")
+
+query = "How do I solve a quadratic equation?"
+agent_response = math_tutor_agent.invoke(query)
+print_agent_response(math_tutor_agent, agent_response)
+
+print_spacing()
+
+storyteller_agent = Agent(name="Sto", 
+                   role="Storyteller Assistant", 
+                   instructions="You only tell fictional stories. You only talk about fictional stories. You are here to entertain the user interesting fictional stories. Limit the stories to 500 words.",
+                   temperature=1.5)
+
+query = "Tell me a story about a dragon and a wizard"
+agent_response = storyteller_agent.invoke(query)
+print_agent_response(storyteller_agent, agent_response)
+
+# Just testing
+# test_agent = Agent(name="Tom", role="Travel Assistant", instructions="Tell me the distance between city A and city B", model="gpt-4o-mini")
+# print("Let's test this workflow:")
+# query = input()
+# while(query != "0"):
+#     print(test_agent.invoke(query))
+#     print("What's next?")
+#     query = input()
