@@ -1,5 +1,5 @@
 """
-    Exercise 10 - Langchain Structured Outputs
+    Exercise 10 - LangChain Structured Outputs
 
     Challenge:  None, just checking out parsers
 """

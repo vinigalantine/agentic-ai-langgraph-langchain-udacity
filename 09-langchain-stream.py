@@ -1,5 +1,5 @@
 """
-    Exercise 09 - Langchain Stream
+    Exercise 09 - LangChain Stream
 
     Challenge:  None, just checking out "stream"
 

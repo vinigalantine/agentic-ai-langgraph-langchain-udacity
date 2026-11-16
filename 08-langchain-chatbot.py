@@ -1,5 +1,5 @@
 """
-    Exercise 08 - Langchain Chatbot
+    Exercise 08 - LangChain Chatbot
 
     Challenge:  You're developing a virtual assistant for a company. Your chatbot needs to:
                     - Maintain conversation history.
@@ -14,7 +14,7 @@
 
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
+from langchain_core.messages import BaseMessage, HumanMessage, SystemMessage, AIMessage
 from langchain_core.prompts import (
     ChatPromptTemplate,
     FewShotChatMessagePromptTemplate,
@@ -77,13 +77,16 @@ class ChatBot:
     @property
     def temperature(self) -> float:
         return self._temperature
+    
+    @property
+    def messages(self) -> tuple[BaseMessage, ...]:
+        return tuple(self._messages)
 
     def invoke(self, message: str) -> AIMessage:
         self._messages.append(HumanMessage(message))
         assistant_response = self._llm.invoke(self._messages)
         self._messages.append(assistant_response)
         return assistant_response
-
 
 examples = [
     {

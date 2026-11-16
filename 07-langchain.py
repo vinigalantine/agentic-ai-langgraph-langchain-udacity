@@ -1,5 +1,5 @@
 """
-    Exercise 07 - Langchain
+    Exercise 07 - LangChain
     
     Challenge: None, just basic langchain stuff.
 """
