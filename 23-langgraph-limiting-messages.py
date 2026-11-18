@@ -35,7 +35,7 @@ def removal_filter(state: State):
     messages_to_delete = [
         RemoveMessage(id=message.id) for message in state["messages"][:-KEEP_LAST_N]
     ]
-    return { "messages": messages_to_delete}
+    return { "messages": messages_to_delete }
     
 def trim_filter(state: State):
     filtered_messages = trim_messages(
