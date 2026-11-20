@@ -73,7 +73,7 @@ tavily_client = TavilyClient()
 
 @tool
 def web_search(query: str) -> dict:
-    """Do a websearch on Tavily
+    """Do a web search on Tavily
 
     Args:
         query (str): Query to be executed

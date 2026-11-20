@@ -4,6 +4,9 @@
 memory.db
 embeddings.png
 data/chromadb/
+mlflow.db
+mlartifacts/
+mlruns/
 
 ### dotenv ###
 .env
